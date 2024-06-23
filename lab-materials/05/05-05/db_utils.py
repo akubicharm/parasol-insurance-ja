@@ -9,6 +9,8 @@ class Database:
         self.conn = self.connect(config)
         
     def connect(self, config):
+            conn = None
+            config["POSRGRES_HOST"] = "claimdb.ic-shared-db.svc.cluster.local"
             """
             Connect to the PostgreSQL database using the provided configuration and return the connection object.
 
@@ -19,17 +21,23 @@ class Database:
                 conn (psycopg2.extensions.connection): A connection object representing the database connection.
             """
             self.logger.info(f"Connecting to PostgreSQL Database...")
-            # try:
-            conn = psycopg2.connect(
-                    host = config["POSTGRES_HOST"],
-                    dbname = config["POSTGRES_DB"],
-                    user = config["POSTGRES_USER"],
-                    password = config["POSTGRES_PASSWORD"],
-                    port = config["POSTGRES_PORT"]
-                )
-            self.logger.info(f"Connection successful!")
-            # except psycopg2.OperationalError as e:
-            #     self.logger.info(f"Could not connect to Database: {e}")
+            self.logger.info(config)
+            #self.logger.info(config["POSTGRES_HOST"])
+            #self.logger.info(config["POSTGRES_DB"])
+            #self.logger.info(config["POSTGRES_USER"])
+            #self.logger.info(config["POSTGRES_PASSWORD"])
+            #self.logger.info(config["POSTGRES_PORT"])
+            try:
+                conn = psycopg2.connect(
+                        host = config["POSTGRES_HOST"],
+                        dbname = config["POSTGRES_DB"],
+                        user = config["POSTGRES_USER"],
+                        password = config["POSTGRES_PASSWORD"],
+                        port = config["POSTGRES_PORT"]
+                    )
+                self.logger.info(f"Connection successful!")
+            except psycopg2.OperationalError as e:
+                self.logger.info(f"Could not connect to Database: {e}")
 
             return conn
 

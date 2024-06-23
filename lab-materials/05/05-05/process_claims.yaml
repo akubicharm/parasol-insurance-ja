@@ -67,9 +67,10 @@ spec:
           - |
             cd /shared-data
             rm -r *
-            git clone https://github.com/rh-aiservices-bu/parasol-insurance
+            #git clone https://github.com/rh-aiservices-bu/parasol-insurance
+            git clone http://git.user1.svc.cluster.local/parasol-insurance
             cd parasol-insurance
-            git checkout dev
+            #git checkout dev
             ls
           command:
           - sh
@@ -137,6 +138,7 @@ spec:
             export claim_id=$claim_id
             cd /shared-data
             cd parasol-insurance/lab-materials/05/05-05
+            rm -f claims.json
             python get_claims.py
             ls
           - $(inputs.params.claim_id)

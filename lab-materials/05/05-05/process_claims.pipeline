@@ -37,7 +37,7 @@
             "label": "",
             "ui_data": {
               "label": "get_claims.py",
-              "image": "/notebook/robert-serving-test/pipelinetest/static/elyra/python.svg",
+              "image": "/notebook/user1/my-workbench/static/elyra/python.svg",
               "x_pos": 217,
               "y_pos": 462,
               "description": "Run Python script"
@@ -98,7 +98,7 @@
             "label": "",
             "ui_data": {
               "label": "get_accident_time.py",
-              "image": "/notebook/robert-serving-test/pipelinetest/static/elyra/python.svg",
+              "image": "/notebook/user1/my-workbench/static/elyra/python.svg",
               "x_pos": 555,
               "y_pos": 243,
               "description": "Run Python script"
@@ -166,7 +166,7 @@
             "label": "",
             "ui_data": {
               "label": "get_location.py",
-              "image": "/notebook/robert-serving-test/pipelinetest/static/elyra/python.svg",
+              "image": "/notebook/user1/my-workbench/static/elyra/python.svg",
               "x_pos": 554,
               "y_pos": 460,
               "description": "Run Python script"
@@ -234,7 +234,7 @@
             "label": "",
             "ui_data": {
               "label": "get_sentiment.py",
-              "image": "/notebook/robert-serving-test/pipelinetest/static/elyra/python.svg",
+              "image": "/notebook/user1/my-workbench/static/elyra/python.svg",
               "x_pos": 555,
               "y_pos": 565,
               "description": "Run Python script"
@@ -304,7 +304,7 @@
             "label": "",
             "ui_data": {
               "label": "detect_objects.py",
-              "image": "/notebook/robert-serving-test/pipelinetest/static/elyra/python.svg",
+              "image": "/notebook/user1/my-workbench/static/elyra/python.svg",
               "x_pos": 559,
               "y_pos": 681,
               "description": "Run Python script"
@@ -372,7 +372,7 @@
             "label": "",
             "ui_data": {
               "label": "summarize_text.py",
-              "image": "/notebook/robert-serving-test/pipelinetest/static/elyra/python.svg",
+              "image": "/notebook/user1/my-workbench/static/elyra/python.svg",
               "x_pos": 554,
               "y_pos": 349,
               "description": "Run Python script"

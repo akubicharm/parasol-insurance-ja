@@ -31,7 +31,8 @@ def get_unprocessed_claims():
     return unprocessed_list
 
 def get_claims(claim_ids=None):
-    claim_ids = claim_ids or int(os.environ.get("claim_id"))
+    #claim_ids = claim_ids or int(os.environ.get("claim_id"))
+    claim_ids=None
     
     if not claim_ids:
         claim_ids = get_unprocessed_claims()

@@ -1,18 +1,18 @@
 #!/bin/bash
 # Get user count
-user_count=$(oc get namespaces | grep showroom | wc -l)
+#user_count=$(oc get namespaces | grep showroom | wc -l)
 
-echo -n 'Waiting for minio-root-user secret'
-while [ -z "\$(oc get secret -n ic-shared-minio minio-root-user -oname 2>/dev/null)" ]; do
-  echo -n .
-  sleep 5
-done; echo
+#echo -n 'Waiting for minio-root-user secret'
+#while [ -z "\$(oc get secret -n ic-shared-minio minio-root-user -oname 2>/dev/null)" ]; do
+#  echo -n .
+#  sleep 5
+#done; echo
 
-echo -n 'Waiting for rhods-dashboard route'
-while [ -z "\$(oc get route -n redhat-ods-applications rhods-dashboard -oname 2>/dev/null)" ]; do
-  echo -n .
-  sleep 5
-done; echo
+#echo -n 'Waiting for rhods-dashboard route'
+#while [ -z "\$(oc get route -n redhat-ods-applications rhods-dashboard -oname 2>/dev/null)" ]; do
+#  echo -n .
+#  sleep 5
+#done; echo
 
 # Get needed variables
 MINIO_ROOT_USER=$(oc get secret minio-root-user -n ic-shared-minio -o template --template '{{.data.MINIO_ROOT_USER|base64decode}}')
@@ -25,12 +25,14 @@ WORKBENCH_NAME="my-workbench"
 WORKBENCH_IMAGE="ic-workbench:2.1.2"
 PIPELINE_ENGINE="Tekton"
 
-for i in $(seq 1 $user_count);
-do
+#for i in $(seq 1 $user_count);
+#do
 
 # Construct dynamic variables
-USER_NAME="user$i"
-USER_PROJECT="user$i"
+#USER_NAME="user$i"
+#USER_PROJECT="user$i"
+USER_NAME="user1"
+USER_PROJECT="user1"
 
 echo "Generating and apply resources for $USER_NAME..."
 
@@ -269,8 +271,8 @@ metadata:
   annotations:
     openshift.io/description: ''
     openshift.io/display-name: My Workbench
-    volume.beta.kubernetes.io/storage-provisioner: openshift-storage.rbd.csi.ceph.com
-    volume.kubernetes.io/storage-provisioner: openshift-storage.rbd.csi.ceph.com
+    # volume.beta.kubernetes.io/storage-provisioner: openshift-storage.rbd.csi.ceph.com
+    # volume.kubernetes.io/storage-provisioner: openshift-storage.rbd.csi.ceph.com
   name: $WORKBENCH_NAME
   namespace: $USER_PROJECT
   finalizers:
@@ -283,7 +285,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ocs-storagecluster-ceph-rbd
+  # storageClassName: ocs-storagecluster-ceph-rbd
   volumeMode: Filesystem
 EOF
 
@@ -500,4 +502,4 @@ EOF
 
 sleep 20
 
-done
+#done

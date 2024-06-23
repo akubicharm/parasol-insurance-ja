@@ -28,10 +28,13 @@ def get_location(claim_id = None):
     claim_info = db.get_claim_info(claim_id)
     claim_body = claim_info["body"]
     
+    with open('templates/system_template.txt') as f:
+        system_template = f.read()
+
     with open('templates/location_template.txt') as f:
-        template = f.read()
+        user_template = f.read()
     
-    location = infer_with_template(claim_body, template)
+    location = infer_with_template(claim_body, system_template, user_template)
     print(location)
     upload_location(claim_id, location)
 

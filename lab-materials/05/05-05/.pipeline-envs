@@ -1,4 +1,5 @@
-LLM_ENDPOINT=http://llm.ic-shared-llm.svc.cluster.local:8000
+LLM_ENDPOINT=_INFERENCE_URL_LLM_
+POSTGRES_HOST=claimdb.ic-shared-db.svc.cluster.local
 POSTGRES_DB=claimdb
 POSTGRES_USER=claimdb
 POSTGRES_PASSWORD=claimdb

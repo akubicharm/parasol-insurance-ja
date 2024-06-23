@@ -28,10 +28,13 @@ def get_accident_time(claim_id = None):
     claim_info = db.get_claim_info(claim_id)
     claim_body = claim_info["body"]
     
+    with open('templates/system_template.txt') as f:
+        system_template = f.read()
+
     with open('templates/time_template.txt') as f:
-        template = f.read()
+        user_template = f.read()
     
-    accident_time = infer_with_template(claim_body, template)
+    accident_time = infer_with_template(claim_body, system_template, user_template)
     print(accident_time)
     upload_accident_time(claim_id, accident_time)
     

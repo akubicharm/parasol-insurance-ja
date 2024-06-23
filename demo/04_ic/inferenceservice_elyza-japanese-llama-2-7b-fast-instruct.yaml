@@ -1,0 +1,33 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    openshift.io/display-name: ELYZA-japanese-Llama-2-7b-fast-instruct
+    serving.knative.openshift.io/enablePassthrough: "true"
+    sidecar.istio.io/inject: "true"
+    sidecar.istio.io/rewriteAppHTTPProbers: "true"
+  labels:
+    opendatahub.io/dashboard: "true"
+  name: elyza-japanese-llama-2-7b-fast-instruct
+  namespace: user1
+spec:
+  predictor:
+    maxReplicas: 1
+    minReplicas: 1
+    model:
+      modelFormat:
+        name: pytorch
+      name: ""
+      resources:
+        limits:
+          nvidia.com/gpu: "1"
+        requests:
+          nvidia.com/gpu: "1"
+      runtime: elyza-japanese-llama-2-7b-fast-instruct-vllm
+      storage:
+        key: aws-connection-shared-minio
+        path: models/ELYZA-japanese-Llama-2-7b-fast-instruct
+    tolerations:
+    - effect: NoSchedule
+      key: nvidia.com/gpu
+      operator: Exists

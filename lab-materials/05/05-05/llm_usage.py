@@ -3,21 +3,25 @@ import os
 from langchain.llms import VLLMOpenAI
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
 from langchain.chains import LLMChain
-from langchain.prompts import PromptTemplate
 from langchain.evaluation import load_evaluator
 from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.prompts.chat import (
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+    ChatPromptTemplate
+)
 
-INFERENCE_SERVER_URL = "http://llm.ic-shared-llm.svc.cluster.local:8000"
+INFERENCE_SERVER_URL = "_INFERENCE_URL_LLM_"
 MAX_NEW_TOKENS = 512
-TOP_P = 0.95
+TOP_P = 0.92
 TEMPERATURE = 0.01
 PRESENCE_PENALTY = 1.03
 
-def infer_with_template(input_text, template):
+def infer_with_template(input_text, system_template_string, user_template_string):
     llm = VLLMOpenAI(
         openai_api_key="EMPTY",
         openai_api_base= f"{INFERENCE_SERVER_URL}/v1",
-        model_name="mistralai/Mistral-7B-Instruct-v0.2",
+        model_name="/mnt/models/",
         max_tokens=MAX_NEW_TOKENS,
         top_p=TOP_P,
         temperature=TEMPERATURE,
@@ -26,7 +30,16 @@ def infer_with_template(input_text, template):
         verbose=False,
     )
     
-    PROMPT = PromptTemplate.from_template(template)
+    system_template = SystemMessagePromptTemplate.from_template(system_template_string)
+    user_template = HumanMessagePromptTemplate.from_template(user_template_string)
+    print(">>---")
+    print("system_template:")
+    print(system_template)
+    print("user_template:")
+    print(user_template)
+    print("<<---")
+
+    PROMPT = ChatPromptTemplate.from_messages([system_template, user_template])
     
     llm_chain = LLMChain(llm=llm, prompt=PROMPT)
     

@@ -1,0 +1,5 @@
+FROM quay.io/rh-aiservices-bu/rhoai-lab-insurance-claim-processing-pipeline:1.0
+
+RUN \
+  pip uninstall -y langchain python-dotenv langchain-openai langchain-community langchain-core && \
+  pip install langchain==0.2.2 python-dotenv==1.0.1 langchain-openai==0.1.8 langchain-community==0.2.2 langchain-core==0.2.4 httpx[http2]==0.27.0

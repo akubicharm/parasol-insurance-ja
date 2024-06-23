@@ -28,10 +28,13 @@ def summarize_claim(claim_id = None):
     claim_info = db.get_claim_info(claim_id)
     claim_body = claim_info["body"]
     
+    with open('templates/system_template.txt') as f:
+        system_template = f.read()
+
     with open('templates/summary_template.txt') as f:
-        template = f.read()
-    
-    summary = infer_with_template(claim_body, template)
+        user_template = f.read()
+
+    summary = infer_with_template(claim_body, system_template, user_template)
     print(summary)
     upload_summarized_claim(claim_id, summary)
     
