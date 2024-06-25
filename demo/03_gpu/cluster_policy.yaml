@@ -40,6 +40,9 @@ spec:
       config: ''
     kernelModuleConfig:
       name: ''
+    repository: nvcr.io/nvidia
+    image: driver
+    version: 535.183.01
   dcgmExporter:
     enabled: true
     config:

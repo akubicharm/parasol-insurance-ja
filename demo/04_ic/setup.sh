@@ -97,8 +97,10 @@ cd parasol-insurance
 git checkout -b main 2>/dev/null
 inference_url_llm="$(oc get inferenceservice/llama-3-elyza-jp-8b -o jsonpath='{.status.url}' -n ${USER})"
 inference_url_img_det="$(oc get inferenceservice/accident-detect -o jsonpath='{.status.url}' -n ${USER})"
+inference_url_transcription="$(oc get inferenceservice/faster-whisper-large-v3 -o jsonpath='{.status.url}' -n ${USER})"
 find . -type f -exec sed -i "s|_INFERENCE_URL_LLM_|${inference_url_llm}|g" {} \;
 find . -type f -exec sed -i "s|_INFERENCE_URL_IMG_DET_|${inference_url_img_det}|g" {} \;
+find . -type f -exec sed -i "s|_INFERENCE_URL_TRANSCRIPTION_|${inference_url_transcription}|g" {} \;
 git config --local user.name demo
 git config --local user.email demo@example.com
 git commit -m "Demo" .
