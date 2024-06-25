@@ -81,14 +81,17 @@ oc label namespace/${USER} modelmesh-enabled=false
 
 oc apply -f servingruntime_llama-3-elyza-jp-8b-vllm.yaml -n ${USER}
 oc apply -f servingruntime_accident-detect-kserve-ovms.yaml -n ${USER}
+oc apply -f servingruntime_faster-whisper-large-v3-faster-whisper.yaml -n ${USER}
 oc apply -f inferenceservice_llama-3-elyza-jp-8b.yaml -n ${USER}
 oc apply -f inferenceservice_accident-detect.yaml -n ${USER}
+oc apply -f inferenceservice_faster-whisper-large-v3.yaml -n ${USER}
 
 while true; do oc get inferenceservices/accident-detect -n ${USER} 2>&1 | grep "not found" 1>/dev/null 2>&1; if [ $? -eq 0 ]; then echo "inferenceservices/accident-detect does not exist yet. waiting..."; sleep 3; continue; else break; fi; done
 oc wait --for=jsonpath='{.status.modelStatus.transitionStatus}'=UpToDate --timeout 15m inferenceservices/accident-detect -n ${USER}
 while true; do oc get inferenceservices/llama-3-elyza-jp-8b -n ${USER} 2>&1 | grep "not found" 1>/dev/null 2>&1; if [ $? -eq 0 ]; then echo "inferenceservices/llama-3-elyza-jp-8b does not exist yet. waiting..."; sleep 3; continue; else break; fi; done
 oc wait --for=jsonpath='{.status.modelStatus.transitionStatus}'=UpToDate --timeout 30m inferenceservices/llama-3-elyza-jp-8b -n ${USER}
-
+while true; do oc get inferenceservices/faster-whisper-large-v3 -n ${USER} 2>&1 | grep "not found" 1>/dev/null 2>&1; if [ $? -eq 0 ]; then echo "inferenceservices/faster-whisper-large-v3 does not exist yet. waiting..."; sleep 3; continue; else break; fi; done
+oc wait --for=jsonpath='{.status.modelStatus.transitionStatus}'=UpToDate --timeout 30m inferenceservices/faster-whisper-large-v3 -n ${USER}
 
 pwd=$(pwd)
 cd /tmp
