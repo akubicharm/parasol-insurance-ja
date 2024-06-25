@@ -54,7 +54,8 @@ oc wait --for jsonpath='{.status.availableReplicas}'=1 --timeout 5m statefulset/
 
 git_url="https://$(oc get route/git -n ${USER} -o jsonpath='{.spec.host}')/parasol-insurance"
 git remote add demo ${git_url}
-while true; do git push demo main 2>/dev/null; if [ $? -eq 0 ]; then break; else sleep 3; fi; done
+git checkout -b transcription origin/transcription
+while true; do git push demo transcription:main 2>/dev/null; if [ $? -eq 0 ]; then break; else sleep 3; fi; done
 
 while true; do oc get statefulset/my-workbench -n ${USER} 2>&1 | grep "not found" 1>/dev/null 2>&1; if [ $? -eq 0 ]; then echo "statefulset/my-workbench does not exist yet. waiting..."; sleep 3; continue; else break; fi; done
 oc wait --for=jsonpath='{.status.availableReplicas}'=1 --timeout 15m statefulset/my-workbench -n ${USER}
