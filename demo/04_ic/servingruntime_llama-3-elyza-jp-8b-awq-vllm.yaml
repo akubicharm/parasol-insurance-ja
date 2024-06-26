@@ -9,7 +9,7 @@ metadata:
     openshift.io/display-name: vllm-serving-runtime
   labels:
     opendatahub.io/dashboard: "true"
-  name: elyza-japanese-llama-2-7b-fast-instruct-vllm
+  name: llama-3-elyza-jp-8b-awq-vllm
   namespace: user1
 spec:
   containers:
@@ -32,10 +32,10 @@ spec:
     resources:
       limits:
         cpu: "4"
-        memory: 12Gi
+        memory: 8Gi
       requests:
         cpu: "1"
-        memory: 4Gi
+        memory: 2Gi
     volumeMounts:
     - name: cache
       mountPath: /.cache
@@ -49,5 +49,4 @@ spec:
   - name : cache
     emptyDir: {}          
   - name : config
-    emptyDir: {}          
-    
+    emptyDir: {}    

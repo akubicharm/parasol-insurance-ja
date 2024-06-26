@@ -75,22 +75,23 @@ oc wait --for=jsonpath='{.status.succeeded}'=1 --timeout 20m job/setup-objectsto
 
 oc label namespace/${USER} modelmesh-enabled=false
 
-oc apply -f servingruntime_elyza-japanese-llama-2-7b-fast-instruct-vllm.yaml -n ${USER}
+oc apply -f servingruntime_llama-3-elyza-jp-8b-awq-vllm.yaml -n ${USER}
 oc apply -f servingruntime_accident-detect-kserve-ovms.yaml -n ${USER}
-oc apply -f inferenceservice_elyza-japanese-llama-2-7b-fast-instruct.yaml -n ${USER}
+oc apply -f inferenceservice_llama-3-elyza-jp-8b-awq.yaml -n ${USER}
 oc apply -f inferenceservice_accident-detect.yaml -n ${USER}
 
 while true; do oc get inferenceservices/accident-detect -n ${USER} 2>&1 | grep "not found" 1>/dev/null 2>&1; if [ $? -eq 0 ]; then echo "inferenceservices/accident-detect does not exist yet. waiting..."; sleep 3; continue; else break; fi; done
 oc wait --for=jsonpath='{.status.modelStatus.transitionStatus}'=UpToDate --timeout 15m inferenceservices/accident-detect -n ${USER}
-while true; do oc get inferenceservices/elyza-japanese-llama-2-7b-fast-instruct -n ${USER} 2>&1 | grep "not found" 1>/dev/null 2>&1; if [ $? -eq 0 ]; then echo "inferenceservices/elyza-japanese-llama-2-7b-fast-instruct does not exist yet. waiting..."; sleep 3; continue; else break; fi; done
-oc wait --for=jsonpath='{.status.modelStatus.transitionStatus}'=UpToDate --timeout 30m inferenceservices/elyza-japanese-llama-2-7b-fast-instruct -n ${USER}
+while true; do oc get inferenceservices/llama-3-elyza-jp-8b-awq -n ${USER} 2>&1 | grep "not found" 1>/dev/null 2>&1; if [ $? -eq 0 ]; then echo "inferenceservices/llama-3-elyza-jp-8b-awq does not exist yet. waiting..."; sleep 3; continue; else break; fi; done
+oc wait --for=jsonpath='{.status.modelStatus.transitionStatus}'=UpToDate --timeout 30m inferenceservices/llama-3-elyza-jp-8b-awq -n ${USER}
+
 
 pwd=$(pwd)
 cd /tmp
 git clone ${git_url}
 cd parasol-insurance
 git checkout -b main
-inference_url_llm="$(oc get inferenceservice/elyza-japanese-llama-2-7b-fast-instruct -o jsonpath='{.status.url}' -n ${USER})"
+inference_url_llm="$(oc get inferenceservice/llama-3-elyza-jp-8b-awq -o jsonpath='{.status.url}' -n ${USER})"
 inference_url_img_det="$(oc get inferenceservice/accident-detect -o jsonpath='{.status.url}' -n ${USER})"
 find . -type f -exec sed -i "s|_INFERENCE_URL_LLM_|${inference_url_llm}|g" {} \;
 find . -type f -exec sed -i "s|_INFERENCE_URL_IMG_DET_|${inference_url_img_det}|g" {} \;

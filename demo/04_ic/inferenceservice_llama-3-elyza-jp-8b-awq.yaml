@@ -2,13 +2,13 @@ apiVersion: serving.kserve.io/v1beta1
 kind: InferenceService
 metadata:
   annotations:
-    openshift.io/display-name: ELYZA-japanese-Llama-2-7b-fast-instruct
+    openshift.io/display-name: Llama-3-ELYZA-JP-8B-AWQ
     serving.knative.openshift.io/enablePassthrough: "true"
     sidecar.istio.io/inject: "true"
     sidecar.istio.io/rewriteAppHTTPProbers: "true"
   labels:
     opendatahub.io/dashboard: "true"
-  name: elyza-japanese-llama-2-7b-fast-instruct
+  name: llama-3-elyza-jp-8b-awq
   namespace: user1
 spec:
   predictor:
@@ -23,10 +23,10 @@ spec:
           nvidia.com/gpu: "1"
         requests:
           nvidia.com/gpu: "1"
-      runtime: elyza-japanese-llama-2-7b-fast-instruct-vllm
+      runtime: llama-3-elyza-jp-8b-awq-vllm
       storage:
         key: aws-connection-shared-minio
-        path: models/ELYZA-japanese-Llama-2-7b-fast-instruct
+        path: models/Llama-3-ELYZA-JP-8B-AWQ
     tolerations:
     - effect: NoSchedule
       key: nvidia.com/gpu

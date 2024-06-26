@@ -8,7 +8,7 @@ oc wait --for jsonpath='{.status.availableReplicas}'=3 --timeout 20m machineset/
 # create GPU machineset
 oc get machineset/${machineset} -o yaml -n openshift-machine-api > /tmp/gpu_machineset.yaml
 sed -i "s/${machineset}/${machineset}g/g" /tmp/gpu_machineset.yaml
-sed -i "s/instanceType: .*/instanceType: g5.xlarge/g" /tmp/gpu_machineset.yaml
+sed -i "s/instanceType: .*/instanceType: g4dn.xlarge/g" /tmp/gpu_machineset.yaml
 #sed -i "s/replicas: .*/replicas: 2/g" /tmp/gpu_machineset.yaml
 sed -i "s/replicas: .*/replicas: 1/g" /tmp/gpu_machineset.yaml
 
