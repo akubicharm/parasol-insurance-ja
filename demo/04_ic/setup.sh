@@ -90,7 +90,7 @@ pwd=$(pwd)
 cd /tmp
 git clone ${git_url}
 cd parasol-insurance
-git checkout -b main
+git checkout -b main 2>/dev/null
 inference_url_llm="$(oc get inferenceservice/llama-3-elyza-jp-8b-awq -o jsonpath='{.status.url}' -n ${USER})"
 inference_url_img_det="$(oc get inferenceservice/accident-detect -o jsonpath='{.status.url}' -n ${USER})"
 find . -type f -exec sed -i "s|_INFERENCE_URL_LLM_|${inference_url_llm}|g" {} \;
