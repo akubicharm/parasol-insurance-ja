@@ -2,7 +2,7 @@
 
 ### create a secret for kserve
 
-ingress_cert=$(oc get secret -n openshift-ingress | grep ingress-cert | awk '{print $1}')
+ingress_cert=$(oc get secret -n openshift-ingress | grep router-certs | awk '{print $1}')
 oc get secret/${ingress_cert} -n openshift-ingress -o yaml > /tmp/rhods-internal-primary-cert-bundle-secret.yaml_
 cat /tmp/rhods-internal-primary-cert-bundle-secret.yaml_ | sed -e "/^  *creationTimestamp:.*$/d" | sed -e "/^  *labels:.*$/d" | sed -e "/^  *certificate-type:.*$/d" | sed -e "/^  *resourceVersion:.*$/d" | sed -e "/^  *uid:.*$/d" | sed -e "s/namespace:.*/namespace: istio-system/g" | sed -e "s/type:.*/type: kubernetes.io\/tls/g" | sed -e "s/name:.*/name: rhods-internal-primary-cert-bundle-secret/g" > /tmp/rhods-internal-primary-cert-bundle-secret.yaml
 
