@@ -2,7 +2,11 @@
 
 USER=user1
 
+HTPASSWD=$(oc get oauth/cluster -o jsonpath='{.spec.identityProviders[0].htpasswd.fileData.name}')
+HTPASSWD_ADMIN=$(oc get secret/${HTPASSWD} -n openshift-config -o jsonpath='{.data.htpasswd}' | base64 -d | grep admin)
 htpasswd -c -B -b /tmp/htpasswd ${USER} openshift
+echo "${HTPASSWD_ADMIN}" >> /tmp/htpasswd
+
 oc create secret generic htpass-secret --from-file=htpasswd=/tmp/htpasswd -n openshift-config
 oc get oauth/cluster -o yaml | grep -B50 spec: | grep -v spec: > /tmp/oauth.yaml
 cat <<EOF >> /tmp/oauth.yaml
