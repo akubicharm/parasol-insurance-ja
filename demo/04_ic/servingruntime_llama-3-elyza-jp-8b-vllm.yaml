@@ -9,7 +9,7 @@ metadata:
     openshift.io/display-name: vllm-serving-runtime
   labels:
     opendatahub.io/dashboard: "true"
-  name: llama-3-elyza-jp-8b-awq-vllm
+  name: llama-3-elyza-jp-8b-vllm
   namespace: user1
 spec:
   containers:
@@ -24,7 +24,7 @@ spec:
     env:
     - name: NUMBA_CACHE_DIR
       value: /tmp
-    image: vllm/vllm-openai:v0.5.3
+    image: vllm/vllm-openai:latest
     name: kserve-container
     ports:
     - containerPort: 8080

@@ -33,9 +33,9 @@ spec:
           aws s3 ls --recursive s3://${NAMESPACE} 2>/dev/null
           cd /mnt
           rm -rf ./*
-          git clone https://huggingface.co/elyza/Llama-3-ELYZA-JP-8B-AWQ
-          rm -rf Llama-3-ELYZA-JP-8B-AWQ/.git
-          aws s3 cp --recursive Llama-3-ELYZA-JP-8B-AWQ s3://${NAMESPACE}/models/Llama-3-ELYZA-JP-8B-AWQ
+          git clone https://huggingface.co/elyza/Llama-3-ELYZA-JP-8B
+          rm -rf Llama-3-ELYZA-JP-8B/.git
+          aws s3 cp --recursive Llama-3-ELYZA-JP-8B s3://${NAMESPACE}/models/Llama-3-ELYZA-JP-8B
           curl -o accident_detect.onnx https://rhods-public.s3.amazonaws.com/demo-models/ic-models/accident/accident_detect.onnx
           aws s3 cp accident_detect.onnx s3://${NAMESPACE}/models/accident_detect/1/accident_detect.onnx
           set +e
