@@ -42,7 +42,7 @@ spec:
       name: ''
     repository: nvcr.io/nvidia
     image: driver
-    version: 535.183.01
+    version: 535.183.06
   dcgmExporter:
     enabled: true
     config:
