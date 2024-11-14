@@ -19,8 +19,8 @@ kind: Subscription
 metadata:
   name: odf-operator
   namespace: openshift-storage
- spec:
-  channel: stable-4.15
+spec:
+  channel: stable-4.17
   installPlanApproval: Automatic
   name: odf-operator
   source: redhat-operators
